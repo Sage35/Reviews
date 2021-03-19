@@ -16,7 +16,9 @@ exports.getReviews = (req, res) => {
 };
 
 exports.getMeta = (req, res) => {
-  models.getMeta((err, data) => {
+  const id = req.query.product_id || 17;
+
+  models.getMeta(id, (err, data) => {
     if (err) {
       console.error('error posting reviews: ', err);
       res.sendStatus(500);
