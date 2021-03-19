@@ -8,8 +8,8 @@ CREATE TABLE reviews (
   date DATE NOT NULL DEFAULT CURRENT_DATE,
   reviewer_name VARCHAR NOT NULL,
   email VARCHAR,
-  helpfulness INT,
-  reported BOOLEAN,
+  helpfulness INT NOT NULL DEFAULT 0,
+  reported BOOLEAN NOT NULL DEFAULT false,
   response VARCHAR
 );
 

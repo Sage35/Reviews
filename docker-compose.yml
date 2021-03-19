@@ -1,7 +1,6 @@
 services:
   db:
     container_name: reviews-db
-    image: reviews-db
     build: ./db/
     restart: always
     environment:
@@ -14,7 +13,6 @@ services:
       - postgres-volume:/var/lib/postgresql/data
   server:
     container_name: reviews-server
-    image: reviews-server
     build: ./server/
     restart: always
     depends_on:
