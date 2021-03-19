@@ -1,0 +1,29 @@
+services:
+  db:
+    container_name: reviews-db
+    image: reviews-db
+    build: ./db/
+    restart: always
+    environment:
+      POSTGRES_DB: reviews
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-volume:/var/lib/postgresql/data
+  server:
+    container_name: reviews-server
+    image: reviews-server
+    build: ./server/
+    restart: always
+    depends_on:
+      - db
+    environment:
+      DATABASE_HOST: database
+      DATABASE_URL: postgres://postgres:postgres@reviews-db:5432/reviews
+      NODE_ENV: development
+    ports:
+      - "3000:3000"
+volumes:
+  postgres-volume:
