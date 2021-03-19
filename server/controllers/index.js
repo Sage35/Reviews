@@ -15,3 +15,43 @@ exports.getReviews = (req, res) => {
   })
 };
 
+exports.getMeta = (req, res) => {
+  models.getMeta((err, data) => {
+    if (err) {
+      console.error('error posting reviews: ', err);
+      res.sendStatus(500);
+    }
+    res.status(200).send(data);
+  })
+};
+
+exports.postReviews = (req, res) => {
+  models.postReviews((err, data) => {
+    if (err) {
+      console.error('error posting reviews: ', err);
+      res.sendStatus(500);
+    }
+    res.status(200).send(data);
+  })
+};
+
+exports.updateHelpful = (req, res) => {
+  models.updateHelpful((err, data) => {
+    if (err) {
+      console.error('error posting reviews: ', err);
+      res.sendStatus(500);
+    }
+    res.status(200).send(data);
+  })
+};
+
+exports.updateReport = (req, res) => {
+  models.updateReport((err, data) => {
+    if (err) {
+      console.error('error posting reviews: ', err);
+      res.sendStatus(500);
+    }
+    res.status(200).send(data);
+  })
+};
+
