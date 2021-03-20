@@ -41,7 +41,8 @@ exports.getReviews = (id, sort, count, page, callback) => {
           callback(null, result);
         })
         .catch((err) => {
-          console.error(err);
+          console.error(`error getting reviews for product #${id}: `, err);
+          callback(err);
         });
     })
 };
