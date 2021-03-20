@@ -18,7 +18,7 @@ exports.getMeta = (id, callback) => {
       }
     })
     .catch((err) => {
-      console.error('error adding ratings: ', err);
+      console.error('error adding ratings for product #${id}: ', err);
     })
     .then(() => {
       pool.query(`SELECT recommend, COUNT(*) FROM reviews where product=${id} and reported=false GROUP BY recommend ORDER BY recommend`)
@@ -32,7 +32,7 @@ exports.getMeta = (id, callback) => {
           }
         })
         .catch((err) => {
-          console.error('error recommended: ', err);
+          console.error('error adding recommended for product #${id}: ', err);
         })
         .then(() => {
           pool.query(`SELECT chars.name, char_info.char_id, AVG(char_info.value) FROM chars FULL JOIN char_info ON chars.id = char_info.char_id WHERE chars.product_id =${id} GROUP BY chars.name, char_info.char_id`)
@@ -47,6 +47,13 @@ exports.getMeta = (id, callback) => {
               })
               callback(null, result);
             })
+            .catch(() => {
+              console.error(`error adding characteristics for product #${id}: `, err);
+            })
         })
+    })
+    .catch((err) => {
+      console.error(`error fetching meta characteristics for product #${id}: `, err);
+      callback(err);
     })
 }
