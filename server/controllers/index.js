@@ -28,32 +28,32 @@ exports.getMeta = (req, res) => {
 };
 
 exports.postReviews = (req, res) => {
-  models.postReviews((err, data) => {
+  models.postReviews(req.body, (err, data) => {
     if (err) {
       console.error('error posting reviews: ', err);
       res.sendStatus(500);
     }
-    res.status(200).send(data);
+    res.status(201).send(data);
   })
 };
 
 exports.updateHelpful = (req, res) => {
-  models.updateHelpful((err, data) => {
+  models.updateHelpful(req.params.review_id, (err, data) => {
     if (err) {
-      console.error('error posting reviews: ', err);
+      console.error('error updating reviews: ', err);
       res.sendStatus(500);
     }
-    res.status(200).send(data);
+    res.status(201).send(data);
   })
 };
 
 exports.updateReport = (req, res) => {
-  models.updateReport((err, data) => {
+  models.updateReport(req.params.review_id, (err, data) => {
     if (err) {
-      console.error('error posting reviews: ', err);
+      console.error('error updating reviews: ', err);
       res.sendStatus(500);
     }
-    res.status(200).send(data);
+    res.status(201).send(data);
   })
 };
 
