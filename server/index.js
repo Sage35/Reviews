@@ -8,7 +8,7 @@ require('dotenv').config()
 app.use(express.json());
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', `http://${process.env.SERVER_IP}:8000`);
+  res.setHeader('Access-Control-Allow-Origin', `http://${process.env.SERVER_IP}`);
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
   next();
