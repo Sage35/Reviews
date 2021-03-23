@@ -18,6 +18,10 @@ app.get('/', (req, res) => {
   res.status(200).send('connected to server!');
 });
 
+app.get(`/${process.env.LOADER}`, (req, res) => {
+  res.status(200).send(process.env.LOADER)
+})
+
 app.use('/reviews', router);
 
 app.listen(port, () => {
