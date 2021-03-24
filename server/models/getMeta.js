@@ -6,7 +6,7 @@ exports.getMeta = (id, callback) => {
     product_id: id
   }
   const ratingStart = new Date();
-  pool.query(`SELECT rating, COUNT(*) FROM reviews where product=${id} and reported=false GROUP BY rating ORDER BY rating`)
+  pool.query(`SELECT rating, COUNT(*) FROM reviews where product=${id} and reported=false GROUP BY rating`)
     .then(({rows}) => {
       result.ratings = {
         1: "0",
@@ -26,14 +26,14 @@ exports.getMeta = (id, callback) => {
     })
     .then(() => {
       const recommendStart = new Date();
-      pool.query(`SELECT recommend, COUNT(*) FROM reviews where product=${id} and reported=false GROUP BY recommend ORDER BY recommend`)
+      pool.query(`SELECT recommend FROM reviews where product=${id} and reported=false`)
         .then(({rows}) => {
           result.recommended = {
             false: 0,
             true: 0
           }
           for (let item of rows) {
-            result.recommended[item.recommend] = item.count;
+            result.recommended[item.recommend] = result.recommended[item.recommend] + 1;
           }
           const recommendEnd = new Date() - recommendStart;
           stats.client.timing('Meta_recommendQuery', recommendEnd);
