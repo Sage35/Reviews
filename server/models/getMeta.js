@@ -26,14 +26,20 @@ exports.getMeta = (id, callback) => {
     })
     .then(() => {
       const recommendStart = new Date();
-      pool.query(`SELECT recommend FROM reviews where product=${id} and reported=false`)
+      pool.query(`SELECT recommend FROM reviews where product=${id} and reported=false ORDER BY recommend`)
         .then(({rows}) => {
           result.recommended = {
             false: 0,
             true: 0
           }
-          for (let item of rows) {
-            result.recommended[item.recommend] = result.recommended[item.recommend] + 1;
+          for (let i = 0; i < rows.length; i++) {
+            let item = rows[i];
+            if (item.recommend === false) {
+              result.recommended.false ++;
+            } else {
+              result.recommended.true = rows.length - i;
+              break;
+            }
           }
           const recommendEnd = new Date() - recommendStart;
           stats.client.timing('Meta_recommendQuery', recommendEnd);
