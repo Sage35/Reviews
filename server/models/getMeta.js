@@ -36,7 +36,7 @@ exports.getMeta = (id, callback) => {
             result.recommended[item.recommend] = item.count;
           }
           const recommendEnd = new Date() - recommendStart;
-          stats.client.timing('Meta_ratingQuery', recommendEnd);
+          stats.client.timing('Meta_recommendQuery', recommendEnd);
         })
         .catch((err) => {
           console.error('error adding recommended for product #${id}: ', err);
@@ -54,7 +54,7 @@ exports.getMeta = (id, callback) => {
                 return char;
               })
               const charEnd = new Date() - charStart;
-              stats.client.timing('Meta_ratingQuery', charEnd);
+              stats.client.timing('Meta_charsQuery', charEnd);
               callback(null, result);
             })
             .catch((err) => {
