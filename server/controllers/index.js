@@ -12,6 +12,7 @@ client.socket.on('error', function(error) {
 });
 
 exports.getReviews = (req, res) => {
+  const resStart = new Date();
   client.increment('getReviews');
   const id = req.query.product_id || 17;
   const sort = req.query.sort || 'rating';
@@ -34,6 +35,7 @@ exports.getReviews = (req, res) => {
 };
 
 exports.getMeta = (req, res) => {
+  const resStart = new Date();
   client.increment('getMeta');
   const id = req.query.product_id || 17;
 
@@ -53,6 +55,7 @@ exports.getMeta = (req, res) => {
 };
 
 exports.postReviews = (req, res) => {
+  const resStart = new Date();
   client.increment('postReview');
 
   const dbStart = new Date();
@@ -71,6 +74,7 @@ exports.postReviews = (req, res) => {
 };
 
 exports.updateHelpful = (req, res) => {
+  const resStart = new Date();
   client.increment('updateHelpful');
 
   const dbStart = new Date();
@@ -89,6 +93,7 @@ exports.updateHelpful = (req, res) => {
 };
 
 exports.updateReport = (req, res) => {
+  const resStart = new Date();
   client.increment('updateReport');
 
   const dbStart = new Date();
