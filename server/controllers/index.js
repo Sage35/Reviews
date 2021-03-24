@@ -40,8 +40,9 @@ exports.getMeta = (req, res) => {
     if (err) {
       console.error('error posting reviews: ', err);
       res.sendStatus(500);
+    } else {
+      res.status(200).send(data);
     }
-    res.status(200).send(data);
   })
   const end = new Date() - start;
   client.timing('getMeta_response', end);
@@ -54,8 +55,9 @@ exports.postReviews = (req, res) => {
     if (err) {
       console.error('error posting reviews: ', err);
       res.sendStatus(500);
+    } else {
+      res.status(201).send(data);
     }
-    res.status(201).send(data);
   })
   const end = new Date() - start;
   client.timing('postReviews_response', end);
@@ -68,8 +70,9 @@ exports.updateHelpful = (req, res) => {
     if (err) {
       console.error('error updating reviews: ', err);
       res.sendStatus(500);
+    } else {
+      res.status(201).send(data);
     }
-    res.status(201).send(data);
   })
   const end = new Date() - start;
   client.timing('updateHelpful_response', end);
@@ -82,8 +85,9 @@ exports.updateReport = (req, res) => {
     if (err) {
       console.error('error updating reviews: ', err);
       res.sendStatus(500);
+    } else {
+      res.status(201).send(data);
     }
-    res.status(201).send(data);
   })
   const end = new Date() - start;
   client.timing('updateReport_response', end);
