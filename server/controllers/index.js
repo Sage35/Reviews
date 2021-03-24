@@ -111,3 +111,4 @@ exports.updateReport = (req, res) => {
   })
 };
 
+exports.client = client;

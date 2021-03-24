@@ -1,9 +1,11 @@
 const pool = require('../db');
+const {client} = require('../controllers');
 
 exports.getMeta = (id, callback) => {
   const result = {
     product_id: id
   }
+  const ratingStart = new Date();
   pool.query(`SELECT rating, COUNT(*) FROM reviews where product=${id} and reported=false GROUP BY rating`)
     .then(({rows}) => {
       result.ratings = {
@@ -16,11 +18,14 @@ exports.getMeta = (id, callback) => {
       for (let item of rows) {
         result.ratings[item.rating] = item.count;
       }
+      const ratingEnd = new Date() - ratingStart;
+      client.timing('Meta_ratingQuery', ratingEnd);
     })
     .catch((err) => {
       console.error('error adding ratings for product #${id}: ', err);
     })
     .then(() => {
+      const recommendStart = new Date();
       pool.query(`SELECT recommend, COUNT(*) FROM reviews where product=${id} and reported=false GROUP BY recommend`)
         .then(({rows}) => {
           result.recommended = {
@@ -30,11 +35,14 @@ exports.getMeta = (id, callback) => {
           for (let item of rows) {
             result.recommended[item.recommend] = item.count;
           }
+          const recommendEnd = new Date() - recommendStart;
+          client.timing('Meta_ratingQuery', recommendEnd);
         })
         .catch((err) => {
           console.error('error adding recommended for product #${id}: ', err);
         })
         .then(() => {
+          const charStart = new Date();
           pool.query(`SELECT chars.name, char_info.char_id, AVG(char_info.value) FROM chars FULL JOIN char_info ON chars.id=char_info.char_id WHERE chars.product_id=${id} GROUP BY chars.name, char_info.char_id`)
             .then(({rows}) => {
               result.characteristics = {};
@@ -45,6 +53,8 @@ exports.getMeta = (id, callback) => {
                 }
                 return char;
               })
+              const charEnd = new Date() - charStart;
+              client.timing('Meta_ratingQuery', charEnd);
               callback(null, result);
             })
             .catch((err) => {
