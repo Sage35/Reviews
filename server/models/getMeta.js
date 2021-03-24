@@ -1,5 +1,5 @@
 const pool = require('../db');
-const {client} = require('../controllers');
+const stats = require('../controllers');
 
 exports.getMeta = (id, callback) => {
   const result = {
@@ -19,7 +19,7 @@ exports.getMeta = (id, callback) => {
         result.ratings[item.rating] = item.count;
       }
       const ratingEnd = new Date() - ratingStart;
-      client.timing('Meta_ratingQuery', ratingEnd);
+      stats.client.timing('Meta_ratingQuery', ratingEnd);
     })
     .catch((err) => {
       console.error('error adding ratings for product #${id}: ', err);
@@ -36,7 +36,7 @@ exports.getMeta = (id, callback) => {
             result.recommended[item.recommend] = item.count;
           }
           const recommendEnd = new Date() - recommendStart;
-          client.timing('Meta_ratingQuery', recommendEnd);
+          stats.client.timing('Meta_ratingQuery', recommendEnd);
         })
         .catch((err) => {
           console.error('error adding recommended for product #${id}: ', err);
@@ -54,7 +54,7 @@ exports.getMeta = (id, callback) => {
                 return char;
               })
               const charEnd = new Date() - charStart;
-              client.timing('Meta_ratingQuery', charEnd);
+              stats.client.timing('Meta_ratingQuery', charEnd);
               callback(null, result);
             })
             .catch((err) => {
