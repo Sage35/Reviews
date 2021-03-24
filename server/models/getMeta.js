@@ -47,7 +47,7 @@ exports.getMeta = (id, callback) => {
               })
               callback(null, result);
             })
-            .catch(() => {
+            .catch((err) => {
               console.error(`error adding characteristics for product #${id}: `, err);
             })
         })
