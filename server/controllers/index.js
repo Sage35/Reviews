@@ -12,6 +12,7 @@ client.socket.on('error', function(error) {
 });
 
 exports.getReviews = (req, res) => {
+  const start = new Date();
   client.increment('getReviews');
   const id = req.query.product_id || 17;
   const sort = req.query.sort || 'rating';
@@ -22,12 +23,16 @@ exports.getReviews = (req, res) => {
     if (err) {
       console.error('error getting reviews: ', err);
       res.sendStatus(500);
+    } else {
+      res.status(200).send(data);
     }
-    res.status(200).send(data);
+    const end = new Date() - start;
+    client.timing('getReviews_response', end);
   })
 };
 
 exports.getMeta = (req, res) => {
+  const start = new Date();
   client.increment('getMeta');
   const id = req.query.product_id || 17;
 
@@ -38,9 +43,12 @@ exports.getMeta = (req, res) => {
     }
     res.status(200).send(data);
   })
+  const end = new Date() - start;
+  client.timing('getMeta_response', end);
 };
 
 exports.postReviews = (req, res) => {
+  const start = new Date();
   client.increment('postReview');
   models.postReviews(req.body, (err, data) => {
     if (err) {
@@ -49,9 +57,12 @@ exports.postReviews = (req, res) => {
     }
     res.status(201).send(data);
   })
+  const end = new Date() - start;
+  client.timing('postReviews_response', end);
 };
 
 exports.updateHelpful = (req, res) => {
+  const start = new Date();
   client.increment('updateHelpful');
   models.updateHelpful(req.params.review_id, (err, data) => {
     if (err) {
@@ -60,9 +71,12 @@ exports.updateHelpful = (req, res) => {
     }
     res.status(201).send(data);
   })
+  const end = new Date() - start;
+  client.timing('updateHelpful_response', end);
 };
 
 exports.updateReport = (req, res) => {
+  const start = new Date();
   client.increment('updateReport');
   models.updateReport(req.params.review_id, (err, data) => {
     if (err) {
@@ -71,5 +85,7 @@ exports.updateReport = (req, res) => {
     }
     res.status(201).send(data);
   })
+  const end = new Date() - start;
+  client.timing('updateReport_response', end);
 };
 
