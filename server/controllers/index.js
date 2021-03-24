@@ -43,9 +43,9 @@ exports.getMeta = (req, res) => {
     } else {
       res.status(200).send(data);
     }
+    const end = new Date() - start;
+    client.timing('getMeta_response', end);
   })
-  const end = new Date() - start;
-  client.timing('getMeta_response', end);
 };
 
 exports.postReviews = (req, res) => {
@@ -58,9 +58,9 @@ exports.postReviews = (req, res) => {
     } else {
       res.status(201).send(data);
     }
+    const end = new Date() - start;
+    client.timing('postReviews_response', end);
   })
-  const end = new Date() - start;
-  client.timing('postReviews_response', end);
 };
 
 exports.updateHelpful = (req, res) => {
@@ -73,9 +73,9 @@ exports.updateHelpful = (req, res) => {
     } else {
       res.status(201).send(data);
     }
+    const end = new Date() - start;
+    client.timing('updateHelpful_response', end);
   })
-  const end = new Date() - start;
-  client.timing('updateHelpful_response', end);
 };
 
 exports.updateReport = (req, res) => {
@@ -88,8 +88,8 @@ exports.updateReport = (req, res) => {
     } else {
       res.status(201).send(data);
     }
+    const end = new Date() - start;
+    client.timing('updateReport_response', end);
   })
-  const end = new Date() - start;
-  client.timing('updateReport_response', end);
 };
 
