@@ -12,7 +12,6 @@ client.socket.on('error', function(error) {
 });
 
 exports.getReviews = (req, res) => {
-  const resStart = new Date();
   client.increment('getReviews');
   const id = req.query.product_id || 17;
   const sort = req.query.sort || 'rating';
@@ -29,13 +28,10 @@ exports.getReviews = (req, res) => {
       client.timing('getReviews_db', dbEnd);
       res.status(200).send(data);
     }
-    const resEnd = new Date() - resStart;
-    client.timing('getReviews_response', resEnd);
   })
 };
 
 exports.getMeta = (req, res) => {
-  const resStart = new Date();
   client.increment('getMeta');
   const id = req.query.product_id || 17;
 
@@ -49,13 +45,10 @@ exports.getMeta = (req, res) => {
       client.timing('getMeta_db', dbEnd);
       res.status(200).send(data);
     }
-    const resEnd = new Date() - resStart;
-    client.timing('getMeta_response', resEnd);
   })
 };
 
 exports.postReviews = (req, res) => {
-  const resStart = new Date();
   client.increment('postReview');
 
   const dbStart = new Date();
@@ -68,13 +61,10 @@ exports.postReviews = (req, res) => {
       client.timing('postReviews_db', dbEnd);
       res.status(201).send(data);
     }
-    const resEnd = new Date() - resStart;
-    client.timing('postReviews_response', resEnd);
   })
 };
 
 exports.updateHelpful = (req, res) => {
-  const resStart = new Date();
   client.increment('updateHelpful');
 
   const dbStart = new Date();
@@ -87,13 +77,10 @@ exports.updateHelpful = (req, res) => {
       client.timing('postReviews_db', dbEnd);
       res.status(201).send(data);
     }
-    const resEnd = new Date() - resStart;
-    client.timing('updateHelpful_response', resEnd);
   })
 };
 
 exports.updateReport = (req, res) => {
-  const resStart = new Date();
   client.increment('updateReport');
 
   const dbStart = new Date();
@@ -106,8 +93,6 @@ exports.updateReport = (req, res) => {
       client.timing('postReviews_db', dbEnd);
       res.status(201).send(data);
     }
-    const resEnd = new Date() - resStart;
-    client.timing('updateReport_response', resEnd);
   })
 };
 
