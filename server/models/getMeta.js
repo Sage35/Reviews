@@ -65,7 +65,7 @@ exports.getMeta = (id, callback) => {
                   // const charEnd = new Date() - charStart;
                   // stats.client.timing('Meta_charsQuery', charEnd);
 
-                  client.setex(id, 60, JSON.stringify(result));
+                  client.setex(id, 120, JSON.stringify(result));
                   callback(null, result);
                 })
                 .catch((err) => {
