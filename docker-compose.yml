@@ -18,8 +18,9 @@ services:
     restart: always
     depends_on:
       - db
+      - redis
     environment:
-      DATABASE_HOST: database
+      REDIS_URL: redis://cache
       DATABASE_URL: postgres://postgres:postgres@reviews-db:5432/reviews
       NODE_ENV: development
     ports:
@@ -35,5 +36,12 @@ services:
       SERVER_IP: localhost
     ports:
       - "8000:8000"
+  redis:
+    image: redis
+    container_name: cache
+    expose:
+      - 6379
+    ports:
+      - "6379:6379"
 volumes:
   postgres-volume:
