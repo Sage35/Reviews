@@ -46,7 +46,7 @@ exports.getReviews = (id, sort, count, page, callback) => {
               })
             })
             .then(() => {
-              client.setex(`${id}_${sort}_${count}_${page}`, 1800, JSON.stringify(result));
+              client.setex(`${id}_${sort}_${count}_${page}`, 5, JSON.stringify(result));
               callback(null, result);
             })
             .catch((err) => {
