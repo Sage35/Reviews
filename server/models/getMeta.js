@@ -3,14 +3,14 @@ const client = require('../redis.js');
 // const stats = require('../controllers');
 
 exports.getMeta = (id, callback) => {
-  client.get(id, (err, data) => {
-    if (err) {
-      console.error(`error getting product #${id} from redis cache: ${err}`);
-    }
-    if (data !== null) {
-      callback(null, JSON.parse(data));
-      return;
-    } else {
+  // client.get(id, (err, data) => {
+  //   if (err) {
+  //     console.error(`error getting product #${id} from redis cache: ${err}`);
+  //   }
+  //   if (data !== null) {
+  //     callback(null, JSON.parse(data));
+  //     return;
+  //   } else {
       const result = {
         product_id: id
       }
@@ -65,7 +65,7 @@ exports.getMeta = (id, callback) => {
                   // const charEnd = new Date() - charStart;
                   // stats.client.timing('Meta_charsQuery', charEnd);
 
-                  client.setex(id, 1800, JSON.stringify(result));
+                  // client.setex(id, 1800, JSON.stringify(result));
                   callback(null, result);
                 })
                 .catch((err) => {
@@ -77,6 +77,6 @@ exports.getMeta = (id, callback) => {
           console.error(`error fetching meta characteristics for product #${id}: `, err);
           callback(err);
         })
-    }
-  })
+    //}
+  //})
 }

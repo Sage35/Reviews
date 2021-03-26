@@ -10,14 +10,14 @@ exports.getReviews = (id, sort, count, page, callback) => {
     sort = 'date'
   }
 
-  client.get(`${id}_${sort}_${count}_${page}`, (err, data) => {
-    if (err) {
-      console.error(`error getting product #${id} from redis cache: ${err}`);
-    }
-    if (data !== null) {
-      callback(null, JSON.parse(data));
-      return;
-    } else {
+  // client.get(`${id}_${sort}_${count}_${page}`, (err, data) => {
+  //   if (err) {
+  //     console.error(`error getting product #${id} from redis cache: ${err}`);
+  //   }
+  //   if (data !== null) {
+  //     callback(null, JSON.parse(data));
+  //     return;
+  //   } else {
       const result = {
         product: id,
         page,
@@ -46,7 +46,7 @@ exports.getReviews = (id, sort, count, page, callback) => {
               })
             })
             .then(() => {
-              client.setex(`${id}_${sort}_${count}_${page}`, 1800, JSON.stringify(result));
+              // client.setex(`${id}_${sort}_${count}_${page}`, 1800, JSON.stringify(result));
               callback(null, result);
             })
             .catch((err) => {
@@ -54,6 +54,6 @@ exports.getReviews = (id, sort, count, page, callback) => {
               callback(err);
             });
         })
-    }
-  })
+    // }
+  // })
 };
