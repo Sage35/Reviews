@@ -1,6 +1,18 @@
 const pool = require('../db');
 
 exports.postReviews = ({product_id, rating, summary, body, recommend, name, email, photos, characteristics}, callback) => {
+  const queryString = getQueryString(product_id, rating, summary, body, recommend, name, email, photos, characteristics);
+  pool.query(queryString)
+    .then(() => {
+      callback(null, 'successfully posted!');
+    })
+    .catch((err) => {
+      console.error(`error posting review for product #${product_id}: `, err);
+      callback(err);
+    })
+};
+
+var getQueryString = (product_id, rating, summary, body, recommend, name, email, photos, characteristics) => {
   var queryString = `WITH insReviews AS (
     INSERT INTO reviews(product, rating, summary, recommend, body, reviewer_name, email)
     VALUES (${product_id}, ${rating}, '${summary}', ${recommend}, '${body}', '${name}', '${email}')
@@ -25,12 +37,5 @@ exports.postReviews = ({product_id, rating, summary, body, recommend, name, emai
 
   queryString = queryString.slice(0, queryString.length - 1);
 
-  pool.query(queryString)
-    .then(() => {
-      callback(null, 'successfully posted!');
-    })
-    .catch((err) => {
-      console.error(`error posting review for product #${product_id}: `, err);
-      callback(err);
-    })
-}
+  return queryString;
+};
