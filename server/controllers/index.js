@@ -74,7 +74,7 @@ exports.updateHelpful = (req, res) => {
       res.sendStatus(500);
     } else {
       const dbEnd = new Date() - dbStart;
-      client.timing('postReviews_db', dbEnd);
+      client.timing('updateHelpful_db', dbEnd);
       res.status(201).send(data);
     }
   })
@@ -90,7 +90,7 @@ exports.updateReport = (req, res) => {
       res.sendStatus(500);
     } else {
       const dbEnd = new Date() - dbStart;
-      client.timing('postReviews_db', dbEnd);
+      client.timing('updateReport_db', dbEnd);
       res.status(201).send(data);
     }
   })

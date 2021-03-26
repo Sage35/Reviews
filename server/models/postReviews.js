@@ -34,5 +34,3 @@ exports.postReviews = ({product_id, rating, summary, body, recommend, name, emai
       callback(err);
     })
 }
-
-// if no photos!!!
