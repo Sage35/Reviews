@@ -164,26 +164,26 @@ This route will report the review, leaving it in the database but removing it fr
 
 *For testing purposes, the project was deployed to a t2.micro EC2 instance on AWS. The Server, Front-end, PostgreSQL database, and Redis Cache all ran as networked Docker containers on the instance using the provided docker-compose file. Loader.io was used to stress test the routes and StatsD gathered specific timing metrics. Tests targeted the reviews for the last 20% of products. The database was loaded with dummy data to support 1,000,000 unique products. Each product had a randomized number of reviews.*
 
-- Reviews table - ~ 5,800,000 entries <br>
-- Product Characteristics table - ~ 3,300,000 entries <br>
-- Reviews Characteristics Ratings table - ~ 19,300,000 entries <br>
-- Reviews Photos table -  ~ 2,700,000 entries <br>
+- Reviews table: ~ 5,800,000 entries <br>
+- Product Characteristics table: ~ 3,300,000 entries <br>
+- Reviews Characteristics Ratings table: ~ 19,300,000 entries <br>
+- Reviews Photos table:  ~ 2,700,000 entries <br>
 
 ---
 
 ### Basic-Route-Performance:
 
-*Performance was benchmarked by how many requests/second the API could handle while maintaining an average response time below 2000ms. The tests target endpoints that reach reviews for the last 20% of products stored in the database. The enpoints for each request is randomized within the range so as to bypass Redis caching and simulate realistic load scenarios for end-users.*
+*Performance was benchmarked by how many requests/second the API could handle while maintaining an average response time below 1500ms and a success rate of 98% or more. The tests target endpoints that reach reviews for the last 20% of products stored in the database. The enpoints for each request is randomized within the range so as to bypass Redis caching and simulate realistic load scenarios for end-users.*
 
-- #### [**Get Reviews** endpoint - randomized product id:   Requests/Second]()
+- #### [**Get Reviews** endpoint - randomized product id: 550 Requests/Second](https://bit.ly/3lURVwe)
 
-- #### [**Get Reviews Meta Data** endpoint - randomized product id:  Requests/Second]()
+- #### [**Get Reviews Meta Data** endpoint - randomized product id: 475 Requests/Second](https://bit.ly/39o4v22)
 
-- #### [**Post Review** endpoint - randomized product id:  Requests/Second]()
+- #### [**Post Review** endpoint - randomized product id: 750 Requests/Second](https://bit.ly/3lYm79D)
 
-- #### [**Update Review Helpfulness** endpoint - randomized review id:  Requests/Second]()
+- #### [**Update Review Helpfulness** endpoint - randomized review id: 975 Requests/Second](https://bit.ly/31mun9Y)
 
-- #### [**Update Review Report Status** endpoint - randomized review id:  Requests/Second]()
+- #### [**Update Review Report Status** endpoint - randomized review id: 975 Requests/Second](https://bit.ly/3lXRQaV)
 
 ---
 
@@ -191,6 +191,6 @@ This route will report the review, leaving it in the database but removing it fr
 
 *A Redis cache was set up on GET endpoints to cache results for 5 seconds. If specific products see an abnormally high amount of traffic, the Redis cache will handle the requests which reduces the load on the database and drastically improves the servers' ability to manage the increased traffic. These tests were configured with 50% of the requests going towards the last 20% of the database and the other 50% going towards 500 products. These 500 products could represent the featured products on an e-retail page.*
 
-- #### [**Get Reviews** endpoint - Same Page, Count, and Sort Parameters:  Requests/Second]()
+- #### [**Get Reviews** endpoint: 900 Requests/Second](https://bit.ly/3fxmlUf)
 
-- #### [**Get Reviews Meta Data** endpoint:  Requests/Second]()
+- #### [**Get Reviews Meta Data** endpoint: 875 Requests/Second](https://bit.ly/39k4lbT)
