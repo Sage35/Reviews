@@ -1,6 +1,6 @@
 # Reviews Backend Micro-Service
 
-### Scalable REST API connected to Postgres database, Redis cache, and React-Redux front-end application.
+## Scalable REST API connected to Postgres database, Redis cache, and React-Redux front-end application.
 
 ![Reviews-Tools](./documentation/readme-logos.png)
 
